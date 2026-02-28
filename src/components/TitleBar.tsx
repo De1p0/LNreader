@@ -5,7 +5,8 @@ import {
      Square2StackIcon,
      StopIcon,
      XMarkIcon,
-     MagnifyingGlassIcon
+     MagnifyingGlassIcon,
+     ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
 
@@ -25,34 +26,40 @@ export default function TitleBar() {
      return (
           <header
                data-tauri-drag-region
-               className="titlebar flex flex-row items-center justify-between w-full h-9 bg-[#0f172a] select-none"
+               className="titlebar flex flex-row items-center w-full h-9 bg-[#0f172a] select-none"
           >
-               <div className="flex items-center h-full">
 
+
+               <div className="flex items-center h-full">
                     <div className="flex items-center gap-2 px-3 select-none pointer-events-none">
                          <svg width="18" height="18" viewBox="0 0 200 200" className="opacity-90">
-                              <rect x="20" y="20" width="160" height="160" rx="20" fill="none" stroke="#FF5C5C" strokeWidth="12" />
-                              <text x="100" y="85" fill="#FF5C5C" fontWeight="900" fontSize="50" textAnchor="middle">URA</text>
-                              <text x="100" y="145" fill="#FF5C5C" fontWeight="900" fontSize="50" textAnchor="middle">YOMI</text>
+                              <rect x="20" y="20" width="160" height="160" rx="20" fill="none" className='stroke-primary-text' strokeWidth="12" />
+                              <text x="100" y="85" className='fill-primary-text' fontWeight="900" fontSize="50" textAnchor="middle">URA</text>
+                              <text x="100" y="145" className='fill-primary-text' fontWeight="900" fontSize="50" textAnchor="middle">YOMI</text>
                          </svg>
-                         <span className="text-[10px] font-black tracking-[0.2em] uppercase text-accent">Urayomi</span>
+                         <span className="text-[10px] font-black tracking-[0.2em] uppercase text-primary-text">Urayomi</span>
                     </div>
                </div>
+               <div className="flex-1 flex"></div>
 
-               <div className="flex-1 max-w-md px-4 no-drag">
-                    <div className="relative group">
+               <div className="w-full max-w-md px-4">
+                    <div className="relative group w-full">
                          <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
                               <MagnifyingGlassIcon className="w-3.5 h-3.5 text-gray-500 group-focus-within:text-accent transition-colors" />
                          </div>
                          <input
                               type="text"
                               placeholder="Search..."
-                              className="w-full bg-white/5 border border-white/5 text-xs text-gray-200 rounded py-1 pl-7 pr-2 focus:outline-none focus:bg-white/10 focus:border-white/20 transition-all"
+                              className="w-full bg-background border border-white/5 text-xs text-primary-text rounded py-1 pl-7 pr-2 focus:outline-none focus:bg-background/90 focus:border-primary-text/90 transition-all"
                          />
                     </div>
                </div>
 
+
+               <div className="flex-1 flex"></div>
+
                <div className="flex h-full">
+
                     <button onClick={() => appWindow.minimize()} className={btnClass} title="Minimize">
                          <MinusIcon className="w-4.5 h-4.5" />
                     </button>

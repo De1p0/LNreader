@@ -3,8 +3,10 @@ import "./App.css";
 import TitleBar from "./components/TitleBar";
 import Sidebar from "./components/SideBar";
 import AppRoutes from "./routes/AppRoutes";
+import { applyTheme } from "./stores/themeStore";
 
 function App() {
+  applyTheme("system");
   return (
 
     <div className="w-screen h-screen flex flex-row overflow-hidden relative bg-surface">
@@ -15,7 +17,7 @@ function App() {
 
         <TitleBar />
 
-        <main className="flex-1 bg-background rounded-tl-2xl p-6 text-black">
+        <main className="flex-1 bg-background rounded-tl-2xl text-black">
           {/* this is for SPA, redirecting to pages ruins UX */}
           <AppRoutes />
         </main>

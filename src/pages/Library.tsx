@@ -1,72 +1,97 @@
+import { ArrowDownIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+
 export default function Library() {
     // this is for test ONLY remove once library fn is fully implemented
+    // image src will be cached offline until 12hr update
+    const [open, setOpen] = useState(false);
 
     let library = [{
         name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
+        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg",
+        currentChapter: 12,
+        maximumChapters: 333,
     }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
+        name: "Ruri Dragon",
+        imageSrc: "https://upload.wikimedia.org/wikipedia/en/2/24/RuriDragon_vol._1_cover.jpg",
+        currentChapter: 12,
+        maximumChapters: 12,
     }, {
-        name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "The Fragrant Flower Blooms with Dignity",
-        // image src will be cached offline until 12hr update
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg/250px-Kaoru_Hana_wa_Rin_to_Saku_volume_1_cover.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }, {
-        name: "Chainsaw Man",
-        imageSrc: "https://upload.wikimedia.org/wikipedia/en/thumb/2/24/Chainsawman.jpg/250px-Chainsawman.jpg"
-    }]
+        name: "Kimi wa Yotsuba no Clover",
+        imageSrc: "https://jpbookstore.com/cdn/shop/files/81NCqrHV51L._SL1500_1024x1024.jpg?v=1752505281",
+        currentChapter: 12,
+        maximumChapters: 333,
+    }];
 
     return (
-        <div className="w-full h-screen flex flex-wrap gap-5 content-start p-5 overflow-y-auto">
-            {library.map((book, index) => (
-                <div key={index} className="relative aspect-2/3 max-w-50 max-h-70 w-full rounded-2xl overflow-hidden shadow-lg ">
-                    <img src={book.imageSrc} className="w-full h-full object-cover" alt={book.name} />
-                    <span className="absolute bottom-0 left-0 w-full p-4 text-white font-black bg-linear-to-t from-black/70 to-transparent">
-                        {book.name}
-                    </span>
+        <div className="w-full h-screen p-6">
+
+            <div className="flex items-center justify-between mb-5">
+                <h1 className="text-xl font-semibold text-primary-text">Library</h1>
+                <div className="relative">
+                    <div
+                        onClick={() => setOpen(!open)}
+                        className="flex items-center gap-1 px-3 py-1 cursor-pointer hover:bg-white/5 rounded transition-colors"
+                    >
+                        <span className="text-xs font-medium text-primary-text">
+                            All
+                        </span>
+                        <ChevronDownIcon
+                            className={`w-3.5 h-3.5 text-gray-400 transition-transform ${open ? "rotate-180" : ""}`}
+                        />
+                    </div>
+
+                    {open && (
+                        <>
+                            <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+
+                            <div className="absolute top-full right-0 mt-1 w-48 bg-surface border border-primary-text/10 rounded shadow-2xl backdrop-blur-md z-50 py-1">
+                                <div className="px-4 py-2 text-[11px] text-primary-text hover:bg-primary-text/10 hover:text-primary-text/80 cursor-pointer transition-colors">
+                                    PEAK
+                                </div>
+                                <div className="px-4 py-2 text-[11px] text-primary-text hover:bg-primary-text/10 hover:text-primary-text/80 cursor-pointer transition-colors">
+                                    MID ASF
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
-            ))}
+            </div>
+
+            <div className="overflow-y-auto flex flex-wrap gap-5 content-start">
+
+                {library.map((book, index) => (
+                    <div
+                        key={index}
+                        className="group relative w-full max-w-50 aspect-2/3 rounded-xl overflow-hidden shadow-2xl transition-transform"
+                    >
+
+                        {book.maximumChapters - book.currentChapter > 0 && (
+                            <span className="absolute top-2 left-2 px-2 py-1 text-[10px] tracking-wider font-bold text-white bg-accent backdrop-blur-md rounded-md z-10">
+                                {book.maximumChapters - book.currentChapter}
+                            </span>
+                        )}
+
+                        <img
+                            src={book.imageSrc}
+                            className="w-full h-full object-cover"
+                            alt={book.name}
+                        />
+
+                        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
+
+                        <span
+                            className={`absolute bottom-0 left-0 p-3 text-sm text-white font-semibold leading-tight drop-shadow-md wrap-break-words ${book.name.length > 30
+                                ? "max-w-full"
+                                : "max-w-[75%]"
+                                }`}
+                        >
+                            {book.name}
+                        </span>
+                    </div>
+                ))}
+            </div>
+
         </div >
     );
 }

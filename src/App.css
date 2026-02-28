@@ -8,14 +8,7 @@
   --control-hover: #e5e7eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-main: #121212;
-    --bg-titlebar: #1e1e1e;
-    --text-main: #f5f5f5;
-    --control-hover: #333333;
-  }
-}
+
 
 .dark {
   --bg-main: #121212;
@@ -82,9 +75,9 @@
 
 body, html, #root {
   margin: 0;
+
   height: 100%;
   color: var(--text-main);
-  background-color: transparent;
+  background-color: var(--color-surface);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
