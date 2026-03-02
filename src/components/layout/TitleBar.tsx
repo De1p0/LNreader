@@ -13,6 +13,11 @@ import {
 export default function TitleBar() {
      const [isMaximized, setIsMaximized] = useState(false);
      const appWindow = useMemo(() => getCurrentWindow(), []);
+     const [query, setQuery] = useState("")
+
+     function handleSearch() {
+
+     }
 
      useEffect(() => {
           const syncState = async () => setIsMaximized(await appWindow.isMaximized());
@@ -45,12 +50,18 @@ export default function TitleBar() {
                <div className="w-full max-w-md px-4">
                     <div className="relative group w-full">
                          <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
-                              <MagnifyingGlassIcon className="w-3.5 h-3.5 text-gray-500 group-focus-within:text-accent transition-colors" />
+                              <MagnifyingGlassIcon className="w-3.5 h-3.5 text-gray-500 group-focus-within:text-accent/50 transition-colors" onClick={() => handleSearch()} />
                          </div>
                          <input
                               type="text"
-                              placeholder="Search..."
-                              className="w-full bg-background border border-white/5 text-xs text-primary-text rounded py-1 pl-7 pr-2 focus:outline-none focus:bg-background/90 focus:border-primary-text/90 transition-all"
+                              onChange={(e) => setQuery(e.target.value)}
+                              onKeyDown={(e) => {
+                                   if (e.key === "Enter") {
+                                        handleSearch();
+                                   }
+                              }}
+                              placeholder="Search manga..."
+                              className="w-full bg-background border border-white/5 text-xs text-primary-text rounded py-1 pl-7 pr-2 focus:outline-none focus:bg-background/90 focus:border-accent/90 transition-all"
                          />
                     </div>
                </div>

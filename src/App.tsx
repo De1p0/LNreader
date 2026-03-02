@@ -1,12 +1,19 @@
 
 import "./App.css";
-import TitleBar from "./components/TitleBar";
-import Sidebar from "./components/SideBar";
+import TitleBar from "./components/layout/TitleBar";
+import Sidebar from "./components/layout/SideBar";
 import AppRoutes from "./routes/AppRoutes";
-import { applyTheme } from "./stores/themeStore";
-
+import { applyTheme } from './stores/configStore';
+import "./ExtensionHandler/SourceLoader"
+import { getSourceList, loadSource } from "./ExtensionHandler/SourceLoader";
+import { useEffect } from "react";
 function App() {
-  applyTheme("system");
+  applyTheme("system"); // to prevent instant light mode as default
+
+
+
+
+
   return (
 
     <div className="w-screen h-screen flex flex-row overflow-hidden relative bg-surface">

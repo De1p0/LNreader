@@ -5,13 +5,17 @@ import {
     MagnifyingGlassIcon,
     Cog6ToothIcon,
     Bars3Icon,
-    ArrowDownOnSquareStackIcon
+    ArrowDownOnSquareStackIcon,
+    GlobeAltIcon
 } from "@heroicons/react/24/outline";
 import { NavLink, useLocation } from "react-router-dom";
 
+
+// browse might not be implemented 
 const MENU_ITEMS = [
     { name: "Library", icon: BookmarkIcon, href: "/" },
     { name: "Downloads", icon: ArrowDownOnSquareStackIcon, href: "/downloads" },
+    { name: "Browse", icon: GlobeAltIcon, href: "/browse" },
     { name: "History", icon: ClockIcon, href: "/history" },
     { name: "Search", icon: MagnifyingGlassIcon, href: "/search" },
 ];

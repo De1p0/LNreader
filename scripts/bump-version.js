@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+// this code is ai generated, im just too lazy to actually do this manually
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
