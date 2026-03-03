@@ -3,29 +3,23 @@ import { useConfigStore } from "../../stores/configStore";
 import { getSourceList } from "../../ExtensionHandler/SourceLoader";
 import { useEffect, useState } from "react";
 
-interface ExtensionsSettingsProps {
-    extensionCode: string;
-    setExtensionCode: (code: string) => void;
-}
 
-export default function ExtensionsSettings({ extensionCode, setExtensionCode }: ExtensionsSettingsProps) {
+export default function ExtensionsSettings() {
     const { config, setConfig } = useConfigStore();
     let [sources, setSources] = useState("")
     const handleInstallExtension = async () => {
         setConfig("sources", []);
+        setConfig("installedSources", []);
+        setConfig("installedSourcesName", []);
+        // ok apparently double clicking save wil just break LMAO?
 
         const newSources = await getSourceList(sources); // array for now until gh updates
         setConfig("sourceList", sources);
 
         setConfig("sources", newSources);
 
-        console.log(useConfigStore.getState().config);
     };
 
-    useEffect(() => {
-
-        console.log(config.sources);
-    }, [config.sources]);
 
     return (
         <div className="md:col-span-3 p-4 bg-surface border border-primary-text/10 rounded">

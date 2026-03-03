@@ -6,6 +6,7 @@ export interface AppConfig {
     theme: 'system' | 'light' | 'dark';
     sources: SourceResponse[],
     sourceList: string,
+    installedSourcesName: SourceResponse[],
     installedSources: DefaultExtension[],
 }
 
@@ -22,8 +23,10 @@ export const useConfigStore = create<ConfigStore>()(
                 sources: [],
                 sourceList: "",
                 installedSources: [],
+                installedSourcesName: [],
             },
             setConfig: (key, value) => {
+                console.log(value)
                 set((state) => ({
                     config: { ...state.config, [key]: value },
                 }));

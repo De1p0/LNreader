@@ -1,79 +1,127 @@
-export type SourceConfig = {
+export interface SourceIds {
+    [lang: string]: number;
+}
+
+export interface SourceConfig {
     name: string;
     langs: string[];
+    ids: SourceIds;
     baseUrl: string;
     apiUrl: string;
     iconUrl: string;
-    typeSource: "single" | "multi";
+    typeSource: string;
     itemType: number;
     version: string;
     pkgPath: string;
-};
+}
 
-export type MangaListItem = {
+export interface Chapter {
+    name: string;
+    url: string;
+    scanlator: string;
+    dateUpload: string;
+}
+
+export interface MangaSummary {
     name: string;
     imageUrl: string;
     link: string;
-};
+}
 
-export type MangaListResponse = {
-    list: MangaListItem[];
-    hasNextPage: boolean;
-};
-
-export type MangaDetail = {
-    name: string;
-    description: string;
+export interface MangaDetail {
     author: string;
+    description: string;
     genre: string[];
-    status: 0 | 1 | 2 | 3;
-    imageUrl: string;
-};
+    status: 0 | 1 | 2 | 3; // ongoing | completed | hiatus | cancelled
+    chapters: Chapter[];
+    imageUrl?: string;
+}
 
-export type ApiRelationship = {
-    id: string;
-    type: string;
-    attributes?: {
-        name?: string;
-        fileName?: string;
-    };
-};
+export type TriState = 0 | 1 | 2;
 
-export type ApiMangaAttributes = {
-    title: Record<string, string>;
-    description: Record<string, string>;
-    status: "ongoing" | "completed" | "hiatus" | "cancelled";
-    tags: {
-        attributes: {
-            name: Record<string, string>;
-        };
-    }[];
-};
+export interface FilterStateOption {
+    type_name: string;
+    name: string;
+    value?: string;
+    state?: boolean | number;
+    values?: FilterStateOption[];
+}
+export interface Filter {
+    type_name: string;
+    type?: string;
+    name: string;
+    state?: number | FilterStateOption[];
+    values?: FilterStateOption[];
+}
+export interface ListPreference {
+    title: string;
+    summary: string;
+    valueIndex: number;
+    entries: string[];
+    entryValues: string[];
+}
 
-export type ApiManga = {
-    id: string;
-    attributes: ApiMangaAttributes;
-    relationships: ApiRelationship[];
-};
+export interface MultiSelectListPreference {
+    title: string;
+    summary: string;
+    entries: string[];
+    entryValues: string[];
+    values: string[];
+}
 
-export type ApiResponse<T> = {
+export interface EditTextPreference {
+    title: string;
+    summary: string;
+    value: string;
+    dialogTitle: string;
+    dialogMessage: string;
+}
+
+export interface SourcePreference {
+    key: string;
+    listPreference?: ListPreference;
+    multiSelectListPreference?: MultiSelectListPreference;
+    editTextPreference?: EditTextPreference;
+}
+
+export interface PaginatedResponse<T> {
     data: T[];
-};
+    limit: number;
+    total: number;
+}
 
-export interface DefaultExtension {
+export interface MangaApiResponse {
+    data: any[];
+}
+
+export interface ChapterApiResponse {
+    data: any[];
+    limit: number;
+    total: number;
+}
+
+export declare class DefaultExtension {
     source: SourceConfig;
 
+    constructor(source?: SourceConfig);
+
     fetchUrl(url: string): Promise<any>;
-
-    getPopular(page?: number): Promise<MangaListResponse>;
-
-    getLatestUpdates(page?: number): Promise<MangaListResponse>;
-
-    search(query: string, page?: number): Promise<MangaListResponse>;
-
-    getDetail(mangaId: string): Promise<MangaDetail>;
-
-    mangaRes(data: ApiResponse<ApiManga>): MangaListResponse;
+    getHeaders(url: string): Record<string, string>;
+    getPopular(page: number): Promise<{ list: MangaSummary[]; hasNextPage: boolean }>;
+    getLatestUpdates(page: number): Promise<{ list: MangaSummary[]; hasNextPage: boolean }>;
+    search(query: string, page: number, filters: Filter[]): Promise<{ list: MangaSummary[]; hasNextPage: boolean }>;
+    getDetail(url: string): Promise<MangaDetail>;
+    fetchPaginatedChapters(mangaId: string, lang: string): Promise<Chapter[]>;
+    extractChapters(paginatedData: any): Chapter[];
+    getPageList(url: string): Promise<string[]>;
+    getFilterList(): Filter[];
+    mangaRes(res: string): { list: MangaSummary[]; hasNextPage: boolean };
+    findTitle(data: any, lang: string): string;
+    getCover(data: any): string;
+    preferenceOriginalLanguages(): string;
+    getPreference<T>(key: string, defaultValue: T): T;
+    ll(url: string): string;
+    getSourcePreferences(): SourcePreference[];
 }
 export type SourceResponse = {
     "id": string,

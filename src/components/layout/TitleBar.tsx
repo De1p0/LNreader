@@ -8,14 +8,29 @@ import {
      MagnifyingGlassIcon,
      ChevronDownIcon
 } from '@heroicons/react/24/outline';
+import { useConfigStore } from '../../stores/configStore';
 
 
 export default function TitleBar() {
      const [isMaximized, setIsMaximized] = useState(false);
      const appWindow = useMemo(() => getCurrentWindow(), []);
      const [query, setQuery] = useState("")
+     const { config, setConfig } = useConfigStore();
 
-     function handleSearch() {
+
+
+     async function handleSearch() {
+          if (!query.trim()) return;
+
+          let results: any = []; // holy FUCK im sleep deprived i cant do this no more idc if im using the any type now
+
+          for (const source of config.installedSources) {
+               const res = await source.search(query, 1, []);
+               if (res && res.list) {
+                    // results of the FUCKING SEARCH DFGSHIUGDFOIUH 
+                    console.log([...results, ...res.list])
+               }
+          }
 
      }
 

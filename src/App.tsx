@@ -7,6 +7,8 @@ import { applyTheme } from './stores/configStore';
 import "./ExtensionHandler/SourceLoader"
 import { getSourceList, loadSource } from "./ExtensionHandler/SourceLoader";
 import { useEffect } from "react";
+
+
 function App() {
   applyTheme("system"); // to prevent instant light mode as default
 

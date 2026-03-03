@@ -11,10 +11,7 @@ export default function Settings() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <AppearanceSettings />
                 <DownloadsSettings />
-                <ExtensionsSettings
-                    extensionCode={extensionCode}
-                    setExtensionCode={setExtensionCode}
-                />
+                <ExtensionsSettings />
             </div>
         </div>
     );
