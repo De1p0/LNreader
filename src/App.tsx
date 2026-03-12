@@ -1,22 +1,22 @@
 
 import "./App.css";
+import "./stores/themes/themes.css";
 import TitleBar from "./components/layout/TitleBar";
 import Sidebar from "./components/layout/SideBar";
 import AppRoutes from "./routes/AppRoutes";
-import { applyTheme, useConfigStore } from './stores/configStore';
 import "./ExtensionHandler/SourceLoader"
 import { getSourceList, loadSource } from "./ExtensionHandler/SourceLoader";
 import { useEffect } from "react";
 import { corFetch } from "./coreFetch";
 import { SourceResponse } from "./types/ExtensionData";
-
+import { applyTheme, useConfigStore } from "./stores/configStore";
 
 function App() {
   const { config, setConfig } = useConfigStore();
 
 
   useEffect(() => {
-    applyTheme("system"); // to prevent instant light mode as default
+    applyTheme(config.theme); // to prevent instant light mode as default
 
 
     const handleExtensionLoad = async () => {

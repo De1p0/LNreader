@@ -1,8 +1,8 @@
 import { loadSource } from "../ExtensionHandler/SourceLoader";
-import { useConfigStore } from "../stores/configStore";
 import { DefaultExtension, SourceResponse } from '../types/ExtensionData';
 import { corFetch } from "../coreFetch";
 import ExtensionsSettings from '../components/settings/ExtensionSettings';
+import { useConfigStore } from "../stores/configStore";
 
 export default function Browse() {
     const { config, setConfig } = useConfigStore();

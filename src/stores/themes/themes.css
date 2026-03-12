@@ -1,0 +1,48 @@
+
+.candy {
+  --bg-main: #fff0f5;
+  --bg-titlebar: #ffe4e1;
+  --text-main: #1a1a1a;
+  --control-hover: #ffd6d6;
+  --color-accent: #ff69b4;
+}
+
+.dark {
+  --bg-main: #121212;
+  --bg-titlebar: #1e1e1e;
+  --text-main: #f5f5f5;
+  --control-hover: #333333;
+}
+
+.scarlet {
+  --bg-main: #131313;
+  --bg-titlebar: rgb(36, 34, 34);
+  --text-main: #f5f5f5;
+  --control-hover: #333333;
+  --color-accent: #C27070  ;
+
+}
+
+.nord {
+  --bg-main: #2e3440;
+  --bg-titlebar: #3b4252;
+  --text-main: #eceff4;
+  --control-hover: #434c5e;
+  --color-accent: #88c0d0;
+}
+
+.forest {
+  --bg-main: #0f1a14;
+  --bg-titlebar: #17261e;
+  --text-main: #e6f2ea;
+  --control-hover: #22382d;
+  --color-accent: #5fbf8f;
+}
+
+.midnight {
+  --bg-main: #0b1220;
+  --bg-titlebar: #111a2e;
+  --text-main: #e6edf7;
+  --control-hover: #1e2a44;
+  --color-accent: #5da9ff;
+}

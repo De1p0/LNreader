@@ -10,13 +10,6 @@
 
 
 
-.dark {
-  --bg-main: #121212;
-  --bg-titlebar: #1e1e1e;
-  --text-main: #f5f5f5;
-  --control-hover: #333333;
-}
-
 @theme {
      --font-ubuntu: "Ubuntu", sans-serif;
      --font-cascadia: "Cascadia Code", sans-serif;

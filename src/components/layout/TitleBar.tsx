@@ -8,9 +8,9 @@ import {
      MagnifyingGlassIcon,
      ArrowLeftIcon
 } from '@heroicons/react/24/outline';
-import { useConfigStore } from '../../stores/configStore';
 import { useNavigate } from 'react-router-dom';
 import { Manga } from '../../types/ExtensionData';
+import { useConfigStore } from '../../stores/configStore';
 
 export default function TitleBar() {
      const [isMaximized, setIsMaximized] = useState(false);
@@ -26,7 +26,6 @@ export default function TitleBar() {
 
           for (const source of config.installedSources) {
                const res = await source.search(query, 1, []);
-               console.log(res.list);
 
                if (res?.list) {
                     const items = res.list.map(item => ({
@@ -37,7 +36,6 @@ export default function TitleBar() {
 
 
                     results[source.source.name] = items;
-                    console.log(results);
                }
           }
           setSearch(results, query);

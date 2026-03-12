@@ -1,11 +1,12 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useConfigStore } from "../../stores/configStore";
 import { MangaDetail } from "../../types/ExtensionData";
 
 // 1. Import ReactMarkdown
 import ReactMarkdown from "react-markdown";
+import { useConfigStore } from "../../stores/configStore";
+import { fixBook } from "../../utils/fixBook";
 
 export default function BookDetailsPage() {
     const { config, setPageRoute } = useConfigStore();
@@ -18,14 +19,24 @@ export default function BookDetailsPage() {
 
     useEffect(() => {
         const getDetail = async () => {
+            if (!config.installedSources || config.installedSources.length === 0) return;
+
             if (manga?.getDetail) {
-                let detail = await manga.getDetail(manga.link);
+                const detail = await manga.getDetail(manga.link);
                 setMangaDetail(detail);
+            } else {
+                const fixedBook = await fixBook(manga, config);
+                if (fixedBook.getDetail) {
+                    const detail = await fixedBook.getDetail(fixedBook.link);
+                    setMangaDetail(detail);
+                } else {
+                    setMangaDetail(fixedBook);
+                }
             }
         };
-        getDetail();
-    }, [manga]);
 
+        getDetail();
+    }, [manga, config.installedSources]);
     return (
         <div className="p-8 w-full h-full text-primary-text overflow-y-auto">
             <div className="flex items-start gap-10">
@@ -45,7 +56,7 @@ export default function BookDetailsPage() {
                         {mangaDetail?.genre?.slice(0, genreExp ? undefined : 5).map((genre) => (
                             <div
                                 key={genre}
-                                className="shrink-0 bg-surface/80 border border-primary-text/10 py-1.5 px-3 rounded-lg text-xs font-semibold text-primary-text/70"
+                                className="shrink-0 bg-surface/80 py-1.5 px-3 rounded-lg text-xs font-semibold text-primary-text/70"
                             >
                                 {genre}
                             </div>
@@ -54,7 +65,7 @@ export default function BookDetailsPage() {
                         {mangaDetail?.genre?.length > 5 && (
                             <button
                                 onClick={() => setGenreExp(!genreExp)}
-                                className="shrink-0 bg-accent/10 text-accent px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+                                className="shrink-0 bg-accent/10 text-accent/80 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
                             >
                                 {genreExp ? "Show less" : `+${mangaDetail.genre.length - 5} more`}
                             </button>
@@ -95,9 +106,21 @@ export default function BookDetailsPage() {
                                     key={index}
                                     className="group flex items-center justify-between p-4 border-b border-primary-text/5 hover:bg-surface transition-all cursor-pointer active:bg-primary-text/10"
                                 >
-                                    <span className="font-medium text-primary-text/70 transition-all duration-200">
+                                    <span className="font-medium text-primary-text/70 transition-all duration-200 flex flex-col">
                                         {chapter.name}
+                                        <span className="text-sm text-primary-text/50 transition-all duration-200">
+                                            {`${(() => {
+                                                const date = new Date(+chapter.dateUpload);
+                                                return date.toLocaleDateString('en-US', {
+                                                    month: 'short',
+                                                    day: 'numeric',
+                                                    year: 'numeric'
+                                                });
+                                            })()}   •   ${chapter.scanlator}`}
+                                        </span>
                                     </span>
+
+
 
                                     <span className="text-xs font-bold text-primary-text/0 group-hover:text-primary-text/20 transition-all uppercase tracking-widest">
                                         Read

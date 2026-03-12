@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DefaultExtension, SourceResponse, Manga } from '../types/ExtensionData';
+import { ThemeName, THEMES } from './themes/themes';
 
 export interface AppConfig {
-    theme: 'system' | 'light' | 'dark';
+    theme: ThemeName;
     sources: SourceResponse[];
     sourceList: string;
     installedSourcesName: SourceResponse[];
@@ -140,9 +141,24 @@ export const useConfigStore = create<ConfigStore>()(
     )
 );
 
-export function applyTheme(theme: AppConfig['theme']) {
-    if (typeof window === 'undefined') return;
-    const isDark = theme === 'dark' ||
-        (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.classList.toggle('dark', isDark);
+export function applyTheme(theme: ThemeName) {
+    if (typeof window === "undefined") return;
+
+    const root = document.documentElement;
+
+    const isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    const resolved =
+        theme === "system"
+            ? isSystemDark
+                ? "dark"
+                : "light"
+            : theme;
+
+    Object.values(THEMES).forEach((t) => {
+        if (t.class) root.classList.remove(t.class);
+    });
+
+    const themeClass = THEMES[resolved].class;
+    if (themeClass) root.classList.add(themeClass);
 }

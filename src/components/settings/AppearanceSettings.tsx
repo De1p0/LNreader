@@ -2,6 +2,7 @@ import { useState } from "react";
 import { EyeIcon, ChevronDownIcon, CheckIcon } from "@heroicons/react/24/outline";
 import ToggleButton from "../shared/ToggleButton";
 import SelectDropDown from "../shared/SelectDropdown";
+import { THEME_NAMES } from "../../stores/themes/themes";
 import { useConfigStore } from "../../stores/configStore";
 
 export default function AppearanceSettings() {
@@ -16,11 +17,12 @@ export default function AppearanceSettings() {
             <p className="text-xs text-primary-text/40 mt-1">Theme and UI options.</p>
 
             <div className="mt-4 relative space-y-2">
+
                 <SelectDropDown
                     label="Theme"
                     value={config.theme}
-                    options={["system", "light", "dark"]}
-                    onChange={(val) => setConfig('theme', val as any)}
+                    options={THEME_NAMES}
+                    onChange={(val) => setConfig("theme", val)}
                 />
                 {/* <ToggleButton /> */}
 

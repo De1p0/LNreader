@@ -1,8 +1,9 @@
-import { ArrowDownIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import Book from "../components/shared/Book";
+import { Manga } from "../types/ExtensionData";
 import { useConfigStore } from "../stores/configStore";
-import { Manga, MangaDetail } from "../types/ExtensionData";
+import { fixBook } from "../utils/fixBook";
 
 export default function Library() {
     const [open, setOpen] = useState(false);
@@ -10,7 +11,6 @@ export default function Library() {
     const [books, setBooks] = useState<Manga[]>([]);
     const { config } = useConfigStore();
 
-    // Static library as a fallback / seed
     const library = [
         {
             name: "RuriDragon",
@@ -24,13 +24,8 @@ export default function Library() {
         async function fetchBooks() {
             const bookDetails = await Promise.all(
                 library.map(async (book) => {
-                    const source = config.installedSources.find(
-                        s => s.source.name.toLowerCase() === book.source.toLowerCase()
-                    );
-                    if (source) {
-                        return { ...book, getDetail: source.getDetail.bind(source) };
-                    }
-                    return book;
+                    console.log(book)
+                    return await fixBook(book, config);
                 })
             ) as Manga[];
 
