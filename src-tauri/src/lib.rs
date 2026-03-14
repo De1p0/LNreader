@@ -12,7 +12,7 @@ pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             if let Ok(app_data_path) = app.path().app_data_dir() {
-                // library::initiate::initiate(&app_data_path);
+                library::initiate::initiate(&app_data_path);
             }
             // Use or store the path
             Ok(())

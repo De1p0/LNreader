@@ -23,6 +23,8 @@ tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-http = "2.0.0-rc"
+rusqlite = "0.38.0"
+base64 = "0.22.1"
 
 
 [profile.dev]
