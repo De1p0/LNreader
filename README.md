@@ -1,3 +1,5 @@
+THIS PROJECT IS NO LONGER BEING MAINTAINED, A REWRITE WILL BE AVAILABLE SOON
+
 <p align="center">
   <img src="https://img.shields.io/github/stars/Urayomi/Urayomi?style=for-the-badge&label=Stars" />
   <img src="https://img.shields.io/github/v/release/Urayomi/Urayomi?style=for-the-badge&label=Release" />
